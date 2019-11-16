@@ -99,4 +99,4 @@ BOOL CMFCCharClientApp::InitInstance()
 	//  而不是启动应用程序的消息泵。
 	return FALSE;
 }
-
+//mack11
