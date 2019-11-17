@@ -64,6 +64,7 @@ BEGIN_MESSAGE_MAP(CMFCCharClientDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_CONNECT_BUN, &CMFCCharClientDlg::OnBnClickedConnectBun)
 END_MESSAGE_MAP()
 
 
@@ -152,3 +153,20 @@ HCURSOR CMFCCharClientDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CMFCCharClientDlg::OnBnClickedConnectBun()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	TRACE("###OnBnClickedConnectBun");
+	CString strPort, strIP;
+	//获取控件里面的内容
+	GetDlgItem(IDC_PORT_EDIT)->GetWindowTextW(strPort);
+	GetDlgItem(IDC_IPADDRESS1)->GetWindowTextW(strIP);
+	//CString 转char *
+	USES_CONVERSION;
+	LPCSTR szPort = (LPCSTR)T2A(strPort);
+	LPCSTR szIP = (LPCSTR)T2A(strIP);
+	TRACE("szPort = %s, szIP = %s", szPort, szIP);
+
+}
