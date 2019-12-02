@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{ACCD5B78-1668-4AD7-8A97-88BE81B89C1F}</ProjectGuid>
-    <RootNamespace>MFChatServer</RootNamespace>
+    <ProjectGuid>{EE7CCBD1-7F63-494E-A33C-60157CD3CD19}</ProjectGuid>
+    <RootNamespace>MFCChatServer</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
     <Keyword>MFCProj</Keyword>
   </PropertyGroup>
@@ -189,15 +189,19 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MFChatServer.h" />
-    <ClInclude Include="MFChatServerDlg.h" />
+    <ClInclude Include="ChatSocket.h" />
+    <ClInclude Include="MFCChatServer.h" />
+    <ClInclude Include="MFCChatServerDlg.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="ServerSocket.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MFChatServer.cpp" />
-    <ClCompile Include="MFChatServerDlg.cpp" />
+    <ClCompile Include="ChatSocket.cpp" />
+    <ClCompile Include="MFCChatServer.cpp" />
+    <ClCompile Include="MFCChatServerDlg.cpp" />
+    <ClCompile Include="ServerSocket.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -206,20 +210,20 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="MFChatServer.rc" />
+    <ResourceCompile Include="MFCChatServer.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\MFChatServer.rc2" />
+    <None Include="res\MFCChatServer.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\MFChatServer.ico" />
+    <Image Include="res\MFCChatServer.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties RESOURCE_FILE="MFChatServer.rc" />
+      <UserProperties RESOURCE_FILE="MFCChatServer.rc" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

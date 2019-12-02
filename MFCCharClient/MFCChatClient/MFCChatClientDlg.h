@@ -1,20 +1,21 @@
 
-// MFChatServerDlg.h : 头文件
+// MFCChatClientDlg.h : 头文件
 //
 
 #pragma once
-
-
-// CMFChatServerDlg 对话框
-class CMFChatServerDlg : public CDialogEx
+#include "afxwin.h"
+#include "MySocket.h"
+//
+// CMFCChatClientDlg 对话框
+class CMFCChatClientDlg : public CDialogEx
 {
 // 构造
 public:
-	CMFChatServerDlg(CWnd* pParent = NULL);	// 标准构造函数
+	CMFCChatClientDlg(CWnd* pParent = NULL);	// 标准构造函数
 
 // 对话框数据
 #ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_MFCHATSERVER_DIALOG };
+	enum { IDD = IDD_MFCCHATCLIENT_DIALOG };
 #endif
 
 	protected:
@@ -32,5 +33,10 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnBnClickedStartBtn();
+	afx_msg void OnBnClickedConnectBtn();
+	CMySocket *m_client;
+
+	CTime m_tm;		//实时时间
+	CEdit m_input;
+	CListBox m_list;
 };

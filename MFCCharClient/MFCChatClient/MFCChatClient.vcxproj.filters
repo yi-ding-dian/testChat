@@ -18,10 +18,10 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MFCCharClient.h">
+    <ClInclude Include="MFCChatClient.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="MFCCharClientDlg.h">
+    <ClInclude Include="MFCChatClientDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
@@ -33,30 +33,36 @@
     <ClInclude Include="Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MySocket.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MFCCharClient.cpp">
+    <ClCompile Include="MFCChatClient.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MFCCharClientDlg.cpp">
+    <ClCompile Include="MFCChatClientDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="MySocket.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="MFCCharClient.rc">
+    <ResourceCompile Include="MFCChatClient.rc">
       <Filter>资源文件</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\MFCCharClient.rc2">
+    <None Include="res\MFCChatClient.rc2">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\MFCCharClient.ico">
+    <Image Include="res\MFCChatClient.ico">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

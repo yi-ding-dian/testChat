@@ -1,11 +1,12 @@
 
-// MFCCharClientDlg.cpp : 实现文件
+// MFCChatServerDlg.cpp : 实现文件
 //
 
 #include "stdafx.h"
-#include "MFCCharClient.h"
-#include "MFCCharClientDlg.h"
+#include "MFCChatServer.h"
+#include "MFCChatServerDlg.h"
 #include "afxdialogex.h"
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -45,32 +46,34 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
-// CMFCCharClientDlg 对话框
+// CMFCChatServerDlg 对话框
 
 
 
-CMFCCharClientDlg::CMFCCharClientDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(IDD_MFCCHARCLIENT_DIALOG, pParent)
+CMFCChatServerDlg::CMFCChatServerDlg(CWnd* pParent /*=NULL*/)
+	: CDialogEx(IDD_MFCCHATSERVER_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
-void CMFCCharClientDlg::DoDataExchange(CDataExchange* pDX)
+void CMFCChatServerDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+
+	DDX_Control(pDX, IDC_MSG_LIST, m_list);
 }
 
-BEGIN_MESSAGE_MAP(CMFCCharClientDlg, CDialogEx)
+BEGIN_MESSAGE_MAP(CMFCChatServerDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
-	ON_BN_CLICKED(IDC_CONNECT_BUN, &CMFCCharClientDlg::OnBnClickedConnectBun)
+	ON_BN_CLICKED(IDC_START_BTN, &CMFCChatServerDlg::OnBnClickedStartBtn)
 END_MESSAGE_MAP()
 
 
-// CMFCCharClientDlg 消息处理程序
+// CMFCChatServerDlg 消息处理程序
 
-BOOL CMFCCharClientDlg::OnInitDialog()
+BOOL CMFCChatServerDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
@@ -100,11 +103,13 @@ BOOL CMFCCharClientDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+	GetDlgItem(IDC_PORT_EDIT)->SetWindowText(_T("5000"));//将端口初始化，不用重复输入
+	
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
-void CMFCCharClientDlg::OnSysCommand(UINT nID, LPARAM lParam)
+void CMFCChatServerDlg::OnSysCommand(UINT nID, LPARAM lParam)
 {
 	if ((nID & 0xFFF0) == IDM_ABOUTBOX)
 	{
@@ -121,7 +126,7 @@ void CMFCCharClientDlg::OnSysCommand(UINT nID, LPARAM lParam)
 //  来绘制该图标。  对于使用文档/视图模型的 MFC 应用程序，
 //  这将由框架自动完成。
 
-void CMFCCharClientDlg::OnPaint()
+void CMFCChatServerDlg::OnPaint()
 {
 	if (IsIconic())
 	{
@@ -148,25 +153,50 @@ void CMFCCharClientDlg::OnPaint()
 
 //当用户拖动最小化窗口时系统调用此函数取得光标
 //显示。
-HCURSOR CMFCCharClientDlg::OnQueryDragIcon()
+HCURSOR CMFCChatServerDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
 
 
-void CMFCCharClientDlg::OnBnClickedConnectBun()
+void CMFCChatServerDlg::OnBnClickedStartBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	TRACE("###OnBnClickedConnectBun");
-	CString strPort, strIP;
-	//获取控件里面的内容
-	GetDlgItem(IDC_PORT_EDIT)->GetWindowTextW(strPort);
-	GetDlgItem(IDC_IPADDRESS1)->GetWindowTextW(strIP);
-	//CString 转char *
-	USES_CONVERSION;
-	LPCSTR szPort = (LPCSTR)T2A(strPort);
-	LPCSTR szIP = (LPCSTR)T2A(strIP);
-	TRACE("szPort = %s, szIP = %s", szPort, szIP);
+	CString strPort;
+	GetDlgItem(IDC_PORT_EDIT)->GetWindowText(strPort);
 
+	// 从CString 转化为 char *
+	USES_CONVERSION;
+
+	LPCTSTR szPort = (LPCTSTR)T2A(strPort);
+
+	TRACE("szPort:%s", szPort);
+
+	int iPort = _ttoi(strPort);
+	//创建服务器的Socket对象
+	m_server = new CServerSocket;
+	//创建socket
+	if (!m_server->Create(iPort))
+	{
+		TRACE("m_server create error!error code:%d", GetLastError());
+		return;
+	}
+	else
+	{
+		TRACE("m_server create success!");
+	}
+	//当有连接过来时，调用OnAccept()
+	if (!m_server->Listen())
+	{
+		TRACE("m_server listen error!error code:%d", GetLastError);
+		return;
+	}
+
+	CString str;
+	m_tm.Format("%X ");
+	str += _T("建立服务");
+	m_list.AddString(str);
+	UpdateData(FALSE);
+	
 }
