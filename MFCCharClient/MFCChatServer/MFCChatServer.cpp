@@ -1,26 +1,26 @@
 
-// MFCCharClient.cpp : 定义应用程序的类行为。
+// MFCChatServer.cpp : 定义应用程序的类行为。
 //
 
 #include "stdafx.h"
-#include "MFCCharClient.h"
-#include "MFCCharClientDlg.h"
+#include "MFCChatServer.h"
+#include "MFCChatServerDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
 
-// CMFCCharClientApp
+// CMFCChatServerApp
 
-BEGIN_MESSAGE_MAP(CMFCCharClientApp, CWinApp)
+BEGIN_MESSAGE_MAP(CMFCChatServerApp, CWinApp)
 	ON_COMMAND(ID_HELP, &CWinApp::OnHelp)
 END_MESSAGE_MAP()
 
 
-// CMFCCharClientApp 构造
+// CMFCChatServerApp 构造
 
-CMFCCharClientApp::CMFCCharClientApp()
+CMFCChatServerApp::CMFCChatServerApp()
 {
 	// 支持重新启动管理器
 	m_dwRestartManagerSupportFlags = AFX_RESTART_MANAGER_SUPPORT_RESTART;
@@ -30,18 +30,20 @@ CMFCCharClientApp::CMFCCharClientApp()
 }
 
 
-// 唯一的一个 CMFCCharClientApp 对象
+// 唯一的一个 CMFCChatServerApp 对象
 
-CMFCCharClientApp theApp;
+CMFCChatServerApp theApp;
 
 
-// CMFCCharClientApp 初始化
+// CMFCChatServerApp 初始化
 
-BOOL CMFCCharClientApp::InitInstance()
+BOOL CMFCChatServerApp::InitInstance()
 {
 	// 如果一个运行在 Windows XP 上的应用程序清单指定要
 	// 使用 ComCtl32.dll 版本 6 或更高版本来启用可视化方式，
 	//则需要 InitCommonControlsEx()。  否则，将无法创建窗口。
+
+	AfxSocketInit();
 	INITCOMMONCONTROLSEX InitCtrls;
 	InitCtrls.dwSize = sizeof(InitCtrls);
 	// 将它设置为包括所有要在应用程序中使用的
@@ -70,7 +72,7 @@ BOOL CMFCCharClientApp::InitInstance()
 	// 例如修改为公司或组织名
 	SetRegistryKey(_T("应用程序向导生成的本地应用程序"));
 
-	CMFCCharClientDlg dlg;
+	CMFCChatServerDlg dlg;
 	m_pMainWnd = &dlg;
 	INT_PTR nResponse = dlg.DoModal();
 	if (nResponse == IDOK)
@@ -99,4 +101,4 @@ BOOL CMFCCharClientApp::InitInstance()
 	//  而不是启动应用程序的消息泵。
 	return FALSE;
 }
-//mack11
+

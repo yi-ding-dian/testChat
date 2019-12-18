@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{985DA99C-2B3A-480E-BB58-FE76D7FF8548}</ProjectGuid>
-    <RootNamespace>MFCCharClient</RootNamespace>
+    <ProjectGuid>{F8A8C4B1-AF49-4F61-B4CB-124F3BEECA21}</ProjectGuid>
+    <RootNamespace>MFCChatClient</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
     <Keyword>MFCProj</Keyword>
   </PropertyGroup>
@@ -189,15 +189,17 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MFCCharClient.h" />
-    <ClInclude Include="MFCCharClientDlg.h" />
+    <ClInclude Include="MFCChatClient.h" />
+    <ClInclude Include="MFCChatClientDlg.h" />
+    <ClInclude Include="MySocket.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MFCCharClient.cpp" />
-    <ClCompile Include="MFCCharClientDlg.cpp" />
+    <ClCompile Include="MFCChatClient.cpp" />
+    <ClCompile Include="MFCChatClientDlg.cpp" />
+    <ClCompile Include="MySocket.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -206,20 +208,20 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="MFCCharClient.rc" />
+    <ResourceCompile Include="MFCChatClient.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\MFCCharClient.rc2" />
+    <None Include="res\MFCChatClient.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\MFCCharClient.ico" />
+    <Image Include="res\MFCChatClient.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties RESOURCE_FILE="MFCCharClient.rc" />
+      <UserProperties RESOURCE_FILE="MFCChatClient.rc" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

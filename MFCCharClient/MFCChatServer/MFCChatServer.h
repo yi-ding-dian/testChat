@@ -1,5 +1,5 @@
 
-// MFCCharClient.h : PROJECT_NAME 应用程序的主头文件
+// MFCChatServer.h : PROJECT_NAME 应用程序的主头文件
 //
 
 #pragma once
@@ -11,14 +11,14 @@
 #include "resource.h"		// 主符号
 
 
-// CMFCCharClientApp: 
-// 有关此类的实现，请参阅 MFCCharClient.cpp
+// CMFCChatServerApp: 
+// 有关此类的实现，请参阅 MFCChatServer.cpp
 //
 
-class CMFCCharClientApp : public CWinApp
+class CMFCChatServerApp : public CWinApp
 {
 public:
-	CMFCCharClientApp();
+	CMFCChatServerApp();
 
 // 重写
 public:
@@ -29,4 +29,4 @@ public:
 	DECLARE_MESSAGE_MAP()
 };
 
-extern CMFCCharClientApp theApp;
+extern CMFCChatServerApp theApp;
