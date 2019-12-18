@@ -68,6 +68,7 @@ BEGIN_MESSAGE_MAP(CMFCChatClientDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_CONNECT_BTN, &CMFCChatClientDlg::OnBnClickedConnectBtn)
+	ON_BN_CLICKED(IDC_SEND_BTN, &CMFCChatClientDlg::OnBnClickedSendBtn)
 END_MESSAGE_MAP()
 
 
@@ -173,35 +174,60 @@ void CMFCChatClientDlg::OnBnClickedConnectBtn()
 
 	//从CString 转化为 char *
 	USES_CONVERSION;
-
+	/*
+	错误写法,让我卡了两天！！
 	LPCTSTR szPort = (LPCTSTR)T2A(strPort);
 	LPCTSTR szIp = (LPCTSTR)T2A(strIp);
+	*/
+	LPCSTR szPort = (LPCSTR)T2A(strPort);
+	LPCSTR szIp = (LPCSTR)T2A(strIp);
 	
 	TRACE("szPort:%s\t szIp:%s", szPort, szIp);
 	
-	int iPort = _ttoi(szPort);
+	int iPort = _ttoi(strIp);
 
 	//创建一个socket对象
 	m_client = new CMySocket;
 	//创建套接字，添加容错
-	if (!m_client->Create(iPort))
+	if (!m_client->Create())
 	{
 		TRACE("m_client create error!error code:%d", GetLastError());
 		return;
 	}
-	else
-	{
-		TRACE("m_client create success!");
-	}
 	//			易错写成szIp---注意！！
-	if (!m_client->Connect(strIp, iPort))
+	if (m_client->Connect(strIp, iPort) != SOCKET_ERROR)
 	{
-		TRACE("m_client Connect error!error code:%d", GetLastError());
+		//TRACE("m_client Connect error!error code:%d", GetLastError());
 		return;
 	}
-	
-	//m_client->OnAccept();
 
-	
+}
+
+
+void CMFCChatClientDlg::OnBnClickedSendBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	//1.获取编辑框内容
+	CString strTmpMsg;
+	GetDlgItem(IDC_SENDMSG_EDIT)->GetWindowText(strTmpMsg);
+
+	USES_CONVERSION;
+	char *szSendBuf = T2A(strTmpMsg);
+	//2.发送给服务端
+
+	m_client->Send(szSendBuf, 200, 0);
+	//3.显示到列表框
+	CString strShow = _T("我：");
+	CString strTime;
+	m_tm = CTime::GetCurrentTime();
+	strTime = m_tm.Format("%X ");
+
+	strShow += strTime;
+	strShow += szSendBuf;
+
+	m_list.AddString(strShow);
+	UpdateData(FALSE);
+	//清空发送编辑框
+	GetDlgItem(IDC_SENDMSG_EDIT)->SetWindowTextW(_T(""));
 
 }

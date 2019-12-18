@@ -8,6 +8,7 @@
 #include "afxdialogex.h"
 
 
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -68,6 +69,7 @@ BEGIN_MESSAGE_MAP(CMFCChatServerDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_START_BTN, &CMFCChatServerDlg::OnBnClickedStartBtn)
+	ON_BN_CLICKED(IDC_SEND_BTN, &CMFCChatServerDlg::OnBnClickedSendBtn)
 END_MESSAGE_MAP()
 
 
@@ -163,13 +165,14 @@ HCURSOR CMFCChatServerDlg::OnQueryDragIcon()
 void CMFCChatServerDlg::OnBnClickedStartBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	TRACE("###OnBnClickedStartBtn");
 	CString strPort;
 	GetDlgItem(IDC_PORT_EDIT)->GetWindowText(strPort);
 
 	// 从CString 转化为 char *
 	USES_CONVERSION;
-
-	LPCTSTR szPort = (LPCTSTR)T2A(strPort);
+	//不能写成LPCTSTR
+	LPCSTR szPort = (LPCSTR)T2A(strPort);
 
 	TRACE("szPort:%s", szPort);
 
@@ -182,21 +185,45 @@ void CMFCChatServerDlg::OnBnClickedStartBtn()
 		TRACE("m_server create error!error code:%d", GetLastError());
 		return;
 	}
-	else
-	{
-		TRACE("m_server create success!");
-	}
 	//当有连接过来时，调用OnAccept()
 	if (!m_server->Listen())
 	{
-		TRACE("m_server listen error!error code:%d", GetLastError);
+		TRACE("m_server listen error!error code:%d", GetLastError());
 		return;
 	}
-
 	CString str;
-	m_tm.Format("%X ");
+	m_tm = CTime::GetCurrentTime();
+	str = m_tm.Format("%X ");
+
 	str += _T("建立服务");
 	m_list.AddString(str);
 	UpdateData(FALSE);
 	
+}
+
+
+void CMFCChatServerDlg::OnBnClickedSendBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	//1.获取编辑框内容
+	CString strTmpMsg;
+	GetDlgItem(IDC_SEND_EDIT)->GetWindowTextW(strTmpMsg);
+
+	USES_CONVERSION;
+	char *szSendBuf = T2A(strTmpMsg);
+	//2.发送给客户端
+	m_chat->Send(szSendBuf, 200, 0);
+	//3.显示到列表框
+	CString strShow = _T("服务端：");
+	CString strTime;
+	m_tm = CTime::GetCurrentTime();
+	strTime = m_tm.Format("%X ");
+
+	strShow += strTime;
+	strShow += szSendBuf;
+
+	m_list.AddString(strShow);
+	UpdateData(FALSE);
+	//清空发送编辑框
+	GetDlgItem(IDC_SEND_EDIT)->SetWindowTextW(_T(""));
 }

@@ -39,4 +39,5 @@ public:
 	CTime m_tm;		//实时时间
 	CEdit m_input;
 	CListBox m_list;
+	afx_msg void OnBnClickedSendBtn();
 };

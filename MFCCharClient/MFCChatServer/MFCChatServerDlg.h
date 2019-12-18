@@ -42,4 +42,5 @@ public:
 
 	CListBox m_list;
 	CTime m_tm;
+	afx_msg void OnBnClickedSendBtn();
 };

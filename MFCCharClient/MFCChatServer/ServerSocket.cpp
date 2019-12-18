@@ -23,18 +23,19 @@ CServerSocket::~CServerSocket()
 
 void CServerSocket::OnAccept(int nErrorCode)
 {
-	TRACE("###CServerSocket::OnAccept");
+	TRACE("###OnAccept");
 
 	CMFCChatServerDlg *dlg = (CMFCChatServerDlg *)AfxGetApp()->GetMainWnd();
 	dlg->m_chat = new CChatSocket;
-	Accept(*dlg->m_chat);
+	Accept(*(dlg->m_chat));
 
 	CString str;
 	dlg->m_tm = CTime::GetCurrentTime();
-	dlg->m_tm.Format("%X ");
+	str = dlg->m_tm.Format("%X ");
 
 	str += _T("与客户端连接成功");
 	dlg->m_list.AddString(str);
 	dlg->m_list.UpdateData(FALSE);//更新数据
 
+	CAsyncSocket::OnAccept(nErrorCode);
 }
